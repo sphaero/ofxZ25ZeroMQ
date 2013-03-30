@@ -22,14 +22,14 @@ protected:
 
 private:
     void shutdown();
-    void startThread();
-    void grabMutex();
-    void releaseMutex();
+    //void startThread();
+    //void grabMutex();
+    //void releaseMutex();
 
     zmq::context_t  _context;
     zmq::socket_t*   _socket;
-    pthread_t thread;
-    pthread_mutex_t mutex;
+    //pthread_t thread;
+    //pthread_mutex_t mutex;
 }
 
 #endif
