@@ -5,32 +5,42 @@
 // Connects REQ socket to tcp://localhost:5555
 // Sends "Hello" to server, expects "World" back
 //
-#include <zmq.hpp>
+//#include <zmq.hpp>
 #include <string>
 #include <iostream>
+#include "ofxZ25ZeroMQReqRepClient.h"
 
 int main ()
 {
-// Prepare our context and socket
-zmq::context_t context (1);
-zmq::socket_t *socket;
-socket = new zmq::socket_t(context, ZMQ_REQ);
+
+    // Prepare our context and socket
+    zmq::context_t context(1);
+    ofxZ25ZeroMQReqRepClient test = ofxZ25ZeroMQReqRepClient(context);
+    test.setup("tcp://localhost:5555");
+    test.request("Hello");
+    test.request("Hello1");
+    test.request("Hello2");
+    test.request("Hello3");
+
+    /*zmq::socket_t *socket;
+    socket = new zmq::socket_t(context, ZMQ_REQ);
 
 std::cout << "Connecting to hello world server…" << std::endl;
 socket->connect ("tcp://localhost:5555");
 
 // Do 10 requests, waiting each time for a response
 for (int request_nbr = 0; request_nbr != 10; request_nbr++) {
-zmq::message_t request (6);
-memcpy ((void *) request.data (), "Hello", 5);
-std::cout << "Sending Hello " << request_nbr << "…" << std::endl;
-socket->send (request);
+    zmq::message_t request (6);
+    memcpy ((void *) request.data (), "Hello", 5);
+    std::cout << "Sending Hello " << request_nbr << "…" << std::endl;
+    socket->send (request);
 
-// Get the reply.
-zmq::message_t reply;
-socket->recv (&reply);
-std::cout << "Received World " << request_nbr << std::endl;
+    // Get the reply.
+    zmq::message_t reply;
+    socket->recv (&reply);
+    std::cout << "Received World " << request_nbr << std::endl;
 }
+*/
 return 0;
 }
 
